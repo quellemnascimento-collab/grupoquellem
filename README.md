@@ -9,3 +9,4 @@ Fundada por Márcia Quellem Nascimento em Serra/ES, a Quellnodigital nasceu da c
 ## Documentação estratégica
 
 - [Mapeamento Estratégico](./MAPEAMENTO_ESTRATEGICO.md) — oportunidades, posicionamento, personas, plano 6 meses e prompts operacionais
+- [Playbook Comercial](./PLAYBOOK_COMERCIAL.md) — CRM, pipeline de 6 etapas, scripts, objeções, automações e KPIs
