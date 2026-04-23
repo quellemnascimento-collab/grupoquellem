@@ -1,0 +1,320 @@
+<!-- Component: Card / Testimonial — Quellnodigital -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimonials — Quellnodigital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-brand-primary: #7C3AED;
+      --color-brand-primary-light: #A78BFA;
+      --color-brand-secondary: #06B6D4;
+      --color-accent: #F59E0B;
+      --color-neutral-900: #0F0A1E;
+      --color-neutral-800: #1E1433;
+      --color-neutral-700: #2D1F4A;
+      --color-neutral-600: #4B3D6E;
+      --color-neutral-400: #9CA3AF;
+      --color-neutral-white: #FFFFFF;
+      --gradient-cta: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+      --gradient-card: linear-gradient(145deg, #1E1433 0%, #2D1F4A 100%);
+      --shadow-glow-primary: 0 0 40px rgba(124, 58, 237, 0.3);
+      --font: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--color-neutral-900); color: white; }
+
+    /* SECTION */
+    .testimonials-section {
+      padding: 100px 40px;
+      overflow: hidden;
+    }
+    .section-eyebrow {
+      text-align: center;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--color-brand-primary-light);
+      margin-bottom: 16px;
+    }
+    .section-headline {
+      text-align: center; font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800; line-height: 1.2; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      text-align: center; color: var(--color-neutral-400);
+      font-size: 1rem; line-height: 1.6; max-width: 560px;
+      margin: 0 auto 64px;
+    }
+
+    /* CAROUSEL */
+    .carousel-wrapper { position: relative; }
+    .carousel {
+      display: flex; gap: 24px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px; cursor: grab;
+    }
+    .carousel:active { cursor: grabbing; }
+    .carousel::-webkit-scrollbar { height: 4px; }
+    .carousel::-webkit-scrollbar-track { background: rgba(124, 58, 237, 0.1); border-radius: 2px; }
+    .carousel::-webkit-scrollbar-thumb { background: var(--color-brand-primary); border-radius: 2px; }
+
+    /* CARD */
+    .card {
+      flex: 0 0 360px; scroll-snap-align: start;
+      background: var(--gradient-card);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 24px; padding: 36px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(124, 58, 237, 0.5);
+      box-shadow: var(--shadow-glow-primary);
+      transform: translateY(-4px);
+    }
+
+    /* Card glow corner */
+    .card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Quote mark */
+    .card-quote-icon {
+      font-size: 5rem; line-height: 1;
+      color: rgba(124, 58, 237, 0.2);
+      font-family: Georgia, serif;
+      position: absolute; top: 16px; left: 28px;
+      user-select: none; pointer-events: none;
+    }
+
+    /* Stars */
+    .card-stars {
+      display: flex; gap: 4px; margin-bottom: 20px; position: relative; z-index: 1;
+    }
+    .star { color: var(--color-accent); font-size: 1rem; }
+
+    /* Text */
+    .card-text {
+      font-size: 0.95rem; line-height: 1.7;
+      color: var(--color-neutral-300);
+      margin-bottom: 28px; position: relative; z-index: 1;
+      font-style: italic;
+    }
+
+    /* Result badge */
+    .card-result {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-accent);
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 9999px;
+      margin-bottom: 28px;
+    }
+    .card-result-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+
+    /* Author */
+    .card-author { display: flex; align-items: center; gap: 14px; }
+    .card-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gradient-cta);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 700; flex-shrink: 0;
+      border: 2px solid rgba(124, 58, 237, 0.3);
+    }
+    .card-author-info {}
+    .card-author-name { font-weight: 700; font-size: 0.95rem; }
+    .card-author-meta { font-size: 0.8rem; color: var(--color-neutral-400); margin-top: 2px; }
+
+    /* NAV DOTS */
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 8px; margin-top: 32px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(124, 58, 237, 0.3);
+      cursor: pointer; transition: all 0.3s; border: none;
+    }
+    .dot.active { width: 24px; background: var(--color-brand-primary); }
+
+    @media (max-width: 768px) {
+      .testimonials-section { padding: 60px 20px; }
+      .card { flex: 0 0 300px; padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="testimonials-section" aria-label="Depoimentos de clientes">
+    <p class="section-eyebrow">Resultados reais</p>
+    <h2 class="section-headline">O que nossos clientes dizem</h2>
+    <p class="section-sub">
+      PMEs que pararam de improvisar e passaram a crescer com previsibilidade.
+    </p>
+
+    <div class="carousel-wrapper">
+      <div class="carousel" id="carousel" role="list">
+
+        <article class="card" role="listitem">
+          <div class="card-quote-icon" aria-hidden="true">"</div>
+          <div class="card-stars" aria-label="5 de 5 estrelas">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="card-text">
+            "Em 3 meses, o custo por lead caiu 67% e o ROAS das campanhas foi de 1.8x para 4.6x.
+            A Quellem não entregou tráfego — entregou sistema."
+          </p>
+          <div class="card-result">
+            <span class="card-result-dot" aria-hidden="true"></span>
+            ROAS 4.6x • CPL -67%
+          </div>
+          <div class="card-author">
+            <div class="card-avatar" aria-hidden="true">C</div>
+            <div class="card-author-info">
+              <div class="card-author-name">Carlos Andrade</div>
+              <div class="card-author-meta">CEO · Andrade Esquadrias · Vitória/ES</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="card-quote-icon" aria-hidden="true">"</div>
+          <div class="card-stars" aria-label="5 de 5 estrelas">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="card-text">
+            "A Quellnodigital estruturou nosso CRM, treinou o time comercial e dobrou nossa taxa de
+            conversão. Hoje temos previsibilidade de faturamento. Algo que nunca tínhamos antes."
+          </p>
+          <div class="card-result">
+            <span class="card-result-dot" aria-hidden="true"></span>
+            Conversão 2× • MRR +R$48k
+          </div>
+          <div class="card-author">
+            <div class="card-avatar" aria-hidden="true">J</div>
+            <div class="card-author-info">
+              <div class="card-author-name">Juliana Ferreira</div>
+              <div class="card-author-meta">Diretora · Clínica Viva Bem · Serra/ES</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="card-quote-icon" aria-hidden="true">"</div>
+          <div class="card-stars" aria-label="5 de 5 estrelas">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="card-text">
+            "Contratei achando que era mais uma agência de post. Em 60 dias o funil comercial estava
+            funcionando sozinho — leads qualificados entrando e sendo convertidos automaticamente."
+          </p>
+          <div class="card-result">
+            <span class="card-result-dot" aria-hidden="true"></span>
+            Funil automatizado • Churn 0%
+          </div>
+          <div class="card-author">
+            <div class="card-avatar" aria-hidden="true">R</div>
+            <div class="card-author-info">
+              <div class="card-author-name">Rafael Costa</div>
+              <div class="card-author-meta">Sócio · TechFix Soluções · Cariacica/ES</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="card-quote-icon" aria-hidden="true">"</div>
+          <div class="card-stars" aria-label="5 de 5 estrelas">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <p class="card-text">
+            "Antes éramos invisíveis. Hoje somos referência no ES em estética automotiva. A Quellem
+            construiu nossa presença digital do zero e em 90 dias já recebíamos clientes de outras cidades."
+          </p>
+          <div class="card-result">
+            <span class="card-result-dot" aria-hidden="true"></span>
+            Autoridade digital · +200% alcance
+          </div>
+          <div class="card-author">
+            <div class="card-avatar" aria-hidden="true">A</div>
+            <div class="card-author-info">
+              <div class="card-author-name">André Menezes</div>
+              <div class="card-author-meta">Fundador · AMG Estética Automotiva · ES</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="carousel-dots" role="tablist" aria-label="Navegar depoimentos" id="dots"></div>
+  </section>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const dotsContainer = document.getElementById('dots');
+    const cards = carousel.querySelectorAll('.card');
+
+    // Generate dots
+    cards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Depoimento ${i + 1}`);
+      dot.addEventListener('click', () => scrollToCard(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function scrollToCard(index) {
+      const card = cards[index];
+      carousel.scrollTo({ left: card.offsetLeft - 40, behavior: 'smooth' });
+    }
+
+    // Update active dot on scroll
+    carousel.addEventListener('scroll', () => {
+      const scrollLeft = carousel.scrollLeft;
+      let activeIndex = 0;
+      cards.forEach((card, i) => {
+        if (card.offsetLeft - 40 <= scrollLeft + 10) activeIndex = i;
+      });
+      dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    });
+
+    // Drag-to-scroll
+    let isDown = false, startX, scrollStart;
+    carousel.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX; scrollStart = carousel.scrollLeft; });
+    carousel.addEventListener('mouseleave', () => { isDown = false; });
+    carousel.addEventListener('mouseup', () => { isDown = false; });
+    carousel.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      carousel.scrollLeft = scrollStart - (e.pageX - startX);
+    });
+  </script>
+</body>
+</html>

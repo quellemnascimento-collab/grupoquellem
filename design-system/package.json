@@ -1,0 +1,30 @@
+{
+  "name": "@quellem/design-system",
+  "version": "1.0.0",
+  "description": "Quellnodigital design system — tokens, scripts, templates",
+  "type": "module",
+  "scripts": {
+    "fetch-tokens": "node scripts/fetch-tokens.js",
+    "build-tokens": "node scripts/build-tokens.js",
+    "build-tokens:figma": "node scripts/build-tokens.js --input tokens-figma.json",
+    "parse-figma": "node scripts/parse-figma.js",
+    "generate": "node scripts/generate-components.js",
+    "generate:hero": "node scripts/generate-components.js --component hero",
+    "generate:button": "node scripts/generate-components.js --component button",
+    "generate:card": "node scripts/generate-components.js --component card-testimonial",
+    "generate:services": "node scripts/generate-components.js --component section-services",
+    "generate:html": "node scripts/generate-components.js --format html",
+    "generate:react": "node scripts/generate-components.js --format react",
+    "pipeline": "npm run fetch-tokens && npm run build-tokens:figma && npm run generate"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.54.0"
+  },
+  "devDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
